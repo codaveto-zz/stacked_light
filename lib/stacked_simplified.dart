@@ -1,7 +1,5 @@
 library stacked_simplified;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/state_management/base_view_model.dart';
+export 'src/state_management/view_model_builder.dart';
+export 'src/state_management/view_model_widget.dart';
