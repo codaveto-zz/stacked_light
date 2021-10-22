@@ -1,1 +1,1 @@
-# stacked_simplified
+# stacked_light

@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import 'base_view_model.dart';
+import '../state/base_view_model.dart';
 
 enum _ViewModelBuilderTypes { nonReactive, reactive }
 
@@ -88,8 +88,8 @@ class _ViewModelBuilderState<T extends BaseViewModel> extends State<ViewModelBui
 
   @override
   void dispose() {
-    super.dispose();
     widget.onDispose?.call(_viewModel!);
+    super.dispose();
   }
 
   void _createViewModel() {
