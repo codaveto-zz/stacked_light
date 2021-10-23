@@ -2,11 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-/// A widget that provides a value passed through a provider as a parameter of the build function.
 abstract class ViewModelWidget<T> extends Widget {
-  final bool reactive;
-
   const ViewModelWidget({Key? key, this.reactive = true}) : super(key: key);
+
+  final bool reactive;
 
   @protected
   Widget build(BuildContext context, T viewModel);
@@ -22,8 +21,7 @@ class _DataProviderElement<T> extends ComponentElement {
   ViewModelWidget get widget => super.widget as ViewModelWidget<dynamic>;
 
   @override
-  Widget build() =>
-      widget.build(this, Provider.of<T>(this, listen: widget.reactive));
+  Widget build() => widget.build(this, Provider.of<T>(this, listen: widget.reactive));
 
   @override
   void update(ViewModelWidget newWidget) {

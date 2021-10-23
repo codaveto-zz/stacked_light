@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
-/// Contains ViewModel functionality for busy state management
 abstract class BaseViewModel extends ChangeNotifier {
   bool _isInitialised = false;
   bool get isInitialised => _isInitialised;
@@ -17,21 +16,27 @@ abstract class BaseViewModel extends ChangeNotifier {
   final ValueNotifier<bool> _hasError = ValueNotifier(false);
   ValueListenable<bool> get hasError => _hasError;
 
+  String? _errorMessage;
+  String get errorMessage {
+    assert(_errorMessage != null, 'Set error message before requesting it.');
+    return _errorMessage!;
+  }
+
   @mustCallSuper
   void initialise() {
     _isInitialised = true;
     notifyListeners();
   }
 
-  /// Marks the ViewModel as busy and calls notify listeners
-  void setBusy(bool value) => _isBusy.value = value;
+  void setBusy(bool isBusy) => _isBusy.value = isBusy;
 
-  /// Sets the error for the ViewModel
-  void setError(bool value) => _hasError.value = value;
+  void setError(bool hasError, [String? message]) {
+    _errorMessage = hasError ? message : null;
+    _hasError.value = hasError;
+  }
 
-  /// Sets the ViewModel to busy, runs the future and then sets it to not busy when complete.
-  ///
-  /// rethrows [Exception] after setting busy to false for object or class
+  void clearError() => setError(false);
+
   Future<T> runBusyFuture<T>(Future<T> busyFuture) async {
     try {
       setBusy(true);
@@ -43,6 +48,7 @@ abstract class BaseViewModel extends ChangeNotifier {
     }
   }
 
+  @mustCallSuper
   @override
   void notifyListeners() {
     if (!isDisposed) {
