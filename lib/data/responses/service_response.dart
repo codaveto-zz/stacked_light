@@ -18,7 +18,7 @@ class ServiceResponse<T> {
   final T? result;
 
   factory ServiceResponse.success({
-    String title = 'Success',
+    String? title,
     String? message,
     T? result,
     NotificationLevelType notificationLevelType = NotificationLevelType.success,
@@ -33,7 +33,7 @@ class ServiceResponse<T> {
       );
 
   factory ServiceResponse.error({
-    String title = 'Oops',
+    String? title,
     String? message,
     NotificationLevelType notificationLevelType = NotificationLevelType.error,
     NotificationType notificationType = NotificationType.dialog,
